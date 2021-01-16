@@ -4,7 +4,7 @@ import HTTP
 using Gumbo
 using AbstractTrees
 
-TOUSE = [:div, :p]
+TOUSE = [:div, :p, :cite]
 
 function get_my_content(url)
     get = (url) -> HTTP.request("GET", url)
@@ -63,18 +63,6 @@ Provide an implementation of tag for text nodes
 """
 function tag(elem::Gumbo.HTMLText)
     :text
-end
-
-"""
-Detects the presence of news, using the article elements
-"""
-function has_news(doc::Gumbo.HTMLDocument)
-    for node ∈ PreOrderDFS(doc.root)
-        if tag(node) == :article
-            return true
-        end
-    end
-    return false
 end
 
 function extract_text(elem::Gumbo.HTMLText)
